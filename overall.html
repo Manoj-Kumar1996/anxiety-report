@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOQOL-BREF Self-Assessment</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .result-section {
+            margin-top: 20px;
+        }
+
+        .btn-submit {
+            margin-top: 20px;
+        }
+
+        .nav-item .active {
+            color: white !important;
+        }
+
+        .nav-pills {
+            justify-content: between;
+        }
+
+        @media screen and (max-width: 600px) {
+            .overall-assessment {
+                padding: 0px !important;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-4 ftco-section">
+        <div class="row">
+            <div class="col-md-10 m-auto card p-5 overall-assessment shadow">
+                <!-- Introduction Section -->
+                <div class="card-body">
+                    <!-- Form Section with Tabs -->
+                    <div class="col-md-12">
+                        <p class="text-center">WHOQOL-BREF – Self-Assessment for Pre- and Post-Treatment
+                            Instructions: <br>
+                            Please answer the following questions by reflecting on your experience during the past two
+                            weeks. Mark the answer that best describes how you have felt.</p>
+                    </div>
+                    <hr>
+                    <form id="survey-form">
+                        <!-- Select Dropdown for Mobile View -->
+                        <div class="d-block d-lg-none my-3 ">
+                            <label for="domain-select" class="form-label font-weight-bold">Select Domain</label>
+                            <select id="domain-select" class="form-select">
+                                <option value="physical">Physical Health</option>
+                                <option value="psychological">Psychological Health</option>
+                                <option value="social">Social Relationships</option>
+                                <option value="environment">Environment</option>
+                                <option value="spiritual">Spiritual Health</option>
+                            </select>
+                        </div>
+
+                        <!-- Nav Pills for Tabs (only visible in larger screens) -->
+                        <ul class="nav nav-pills mb-3 justify-content-between pt-5 d-none d-lg-flex" id="pills-tab"
+                            role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="pills-physical-tab" data-bs-toggle="pill"
+                                    href="#pills-physical" role="tab" aria-controls="pills-physical"
+                                    aria-selected="true">Physical Health</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-psychological-tab" data-bs-toggle="pill"
+                                    href="#pills-psychological" role="tab" aria-controls="pills-psychological"
+                                    aria-selected="false">Psychological Health</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-social-tab" data-bs-toggle="pill" href="#pills-social"
+                                    role="tab" aria-controls="pills-social" aria-selected="false">Social
+                                    Relationships</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-environment-tab" data-bs-toggle="pill"
+                                    href="#pills-environment" role="tab" aria-controls="pills-environment"
+                                    aria-selected="false">Environment</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="pills-spiritual-tab" data-bs-toggle="pill"
+                                    href="#pills-spiritual" role="tab" aria-controls="pills-spiritual"
+                                    aria-selected="false">Spiritual Health</a>
+                            </li>
+                        </ul>
+
+
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="pills-tabContent">
+                            <!-- Physical Health Domain -->
+                            <div class="tab-pane fade show active" id="pills-physical" role="tabpanel"
+                                aria-labelledby="pills-physical-tab">
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="physical_health_1" class="form-label font-weight-bold">
+                                        1. How would you rate your physical health?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_1_1" name="physical_health_1"
+                                                value="1"> Very poor
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_1_2" name="physical_health_1"
+                                                value="2"> Poor
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_1_3" name="physical_health_1"
+                                                value="3"> Fair
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_1_4" name="physical_health_1"
+                                                value="4"> Good
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_1_5" name="physical_health_1"
+                                                value="5"> Very good
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="physical_health_2" class="form-label font-weight-bold">
+                                        2. How much physical pain have you experienced?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_2_1" name="physical_health_2"
+                                                value="1"> Very severe pain
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_2_2" name="physical_health_2"
+                                                value="2"> Severe pain
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_2_3" name="physical_health_2"
+                                                value="3"> Moderate pain
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_2_4" name="physical_health_2"
+                                                value="4"> Mild pain
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_2_5" name="physical_health_2"
+                                                value="5"> No pain at all
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="physical_health_3" class="form-label font-weight-bold">
+                                        3. How much do you feel your physical health limits your daily activities?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_3_1" name="physical_health_3"
+                                                value="1"> Very much
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_3_2" name="physical_health_3"
+                                                value="2"> Quite a bit
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_3_3" name="physical_health_3"
+                                                value="3"> A little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_3_4" name="physical_health_3"
+                                                value="4"> Not at all
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_3_5" name="physical_health_3"
+                                                value="5"> Extremely
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="physical_health_4" class="form-label font-weight-bold">
+                                        4. How would you rate your energy level?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_4_1" name="physical_health_4"
+                                                value="1"> Very low
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_4_2" name="physical_health_4"
+                                                value="2"> Low
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_4_3" name="physical_health_4"
+                                                value="3"> Moderate
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_4_4" name="physical_health_4"
+                                                value="4"> High
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="physical_health_4_5" name="physical_health_4"
+                                                value="5"> Very high
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- Psychological Health Domain -->
+                            <div class="tab-pane fade" id="pills-psychological" role="tabpanel"
+                                aria-labelledby="pills-psychological-tab">
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="psychological_health_1" class="form-label font-weight-bold">
+                                        5. How satisfied are you with your ability to think clearly or concentrate?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_1_1"
+                                                name="psychological_health_1" value="1">
+                                            Very dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_1_2"
+                                                name="psychological_health_1" value="2">
+                                            Dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_1_3"
+                                                name="psychological_health_1" value="3">
+                                            Neutral
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_1_4"
+                                                name="psychological_health_1" value="4">
+                                            Satisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_1_5"
+                                                name="psychological_health_1" value="5">
+                                            Very satisfied
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="psychological_health_2" class="form-label font-weight-bold">
+                                        6. How often have you felt depressed or downhearted?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_2_1"
+                                                name="psychological_health_2" value="1">
+                                            Very often
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_2_2"
+                                                name="psychological_health_2" value="2">
+                                            Often
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_2_3"
+                                                name="psychological_health_2" value="3">
+                                            Sometimes
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_2_4"
+                                                name="psychological_health_2" value="4">
+                                            Rarely
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_2_5"
+                                                name="psychological_health_2" value="5">
+                                            Never
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="psychological_health_3" class="form-label font-weight-bold">
+                                        7. How much do you enjoy life right now?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_3_1"
+                                                name="psychological_health_3" value="1">
+                                            Not at all
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_3_2"
+                                                name="psychological_health_3" value="2">
+                                            A little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_3_3"
+                                                name="psychological_health_3" value="3">
+                                            Moderately
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_3_4"
+                                                name="psychological_health_3" value="4">
+                                            Very much
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_3_5"
+                                                name="psychological_health_3" value="5">
+                                            Extremely
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="psychological_health_4" class="form-label font-weight-bold">
+                                        8. How often have you felt anxious or stressed?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_4_1"
+                                                name="psychological_health_4" value="1">
+                                            Very often
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_4_2"
+                                                name="psychological_health_4" value="2">
+                                            Often
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_4_3"
+                                                name="psychological_health_4" value="3">
+                                            Sometimes
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_4_4"
+                                                name="psychological_health_4" value="4">
+                                            Rarely
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="psychological_health_4_5"
+                                                name="psychological_health_4" value="5">
+                                            Never
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Social Relationships Domain -->
+                            <div class="tab-pane fade" id="pills-social" role="tabpanel"
+                                aria-labelledby="pills-social-tab">
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="social_health_1" class="form-label font-weight-bold">
+                                        9. How satisfied are you with your personal relationships?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_1_1" name="social_health_1" value="1">
+                                            Very dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_1_2" name="social_health_1" value="2">
+                                            Dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_1_3" name="social_health_1" value="3">
+                                            Neutral
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_1_4" name="social_health_1" value="4">
+                                            Satisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_1_5" name="social_health_1" value="5">
+                                            Very satisfied
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="social_health_2" class="form-label font-weight-bold">
+                                        10. How much support do you receive from your friends or family?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_2_1" name="social_health_2" value="1">
+                                            Very little support
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_2_2" name="social_health_2" value="2">
+                                            Little support
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_2_3" name="social_health_2" value="3">
+                                            Moderate support
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_2_4" name="social_health_2" value="4">
+                                            A lot of support
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_2_5" name="social_health_2" value="5">
+                                            Very much support
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="social_health_3" class="form-label font-weight-bold">
+                                        11. How much difficulty do you have in maintaining or developing personal
+                                        relationships?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_3_1" name="social_health_3" value="1">
+                                            Very much difficulty
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_3_2" name="social_health_3" value="2">
+                                            Quite a bit of difficulty
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_3_3" name="social_health_3" value="3">
+                                            A little difficulty
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_3_4" name="social_health_3" value="4">
+                                            No difficulty at all
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_3_5" name="social_health_3" value="5">
+                                            Extremely easy
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="social_health_4" class="form-label font-weight-bold">
+                                        12. How often do you feel lonely or isolated?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_4_1" name="social_health_4" value="1">
+                                            Very often
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_4_2" name="social_health_4" value="2">
+                                            Often
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_4_3" name="social_health_4" value="3">
+                                            Sometimes
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_4_4" name="social_health_4" value="4">
+                                            Rarely
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="social_health_4_5" name="social_health_4" value="5">
+                                            Never
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Environment Domain -->
+                            <div class="tab-pane fade" id="pills-environment" role="tabpanel"
+                                aria-labelledby="pills-environment-tab">
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="environment_1" class="form-label font-weight-bold">
+                                        13. How safe do you feel in your daily life?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_1_1" name="environment_1" value="1"> Not
+                                            safe at all
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_1_2" name="environment_1" value="2"> A
+                                            little safe
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_1_3" name="environment_1" value="3">
+                                            Moderately safe
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_1_4" name="environment_1" value="4">
+                                            Quite safe
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_1_5" name="environment_1" value="5">
+                                            Very safe
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="environment_2" class="form-label font-weight-bold">
+                                        14. How satisfied are you with your living conditions?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_2_1" name="environment_2" value="1">
+                                            Very dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_2_2" name="environment_2" value="2">
+                                            Dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_2_3" name="environment_2" value="3">
+                                            Neutral
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_2_4" name="environment_2" value="4">
+                                            Satisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_2_5" name="environment_2" value="5">
+                                            Very satisfied
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="environment_3" class="form-label font-weight-bold">
+                                        15. How satisfied are you with your ability to access the things you need?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_3_1" name="environment_3" value="1">
+                                            Very dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_3_2" name="environment_3" value="2">
+                                            Dissatisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_3_3" name="environment_3" value="3">
+                                            Neutral
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_3_4" name="environment_3" value="4">
+                                            Satisfied
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_3_5" name="environment_3" value="5">
+                                            Very satisfied
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="environment_4" class="form-label font-weight-bold">
+                                        16. How much do you feel that your environment provides you with opportunities
+                                        for relaxation?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_4_1" name="environment_4" value="1">
+                                            Very little opportunity
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_4_2" name="environment_4" value="2">
+                                            Little opportunity
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_4_3" name="environment_4" value="3">
+                                            Moderate opportunity
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_4_4" name="environment_4" value="4"> A
+                                            lot of opportunity
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="environment_4_5" name="environment_4" value="5">
+                                            Very much opportunity
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Spiritual Health Domain -->
+                            <div class="tab-pane fade" id="pills-spiritual" role="tabpanel"
+                                aria-labelledby="pills-spiritual-tab">
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="spiritual_health_1" class="form-label font-weight-bold">
+                                        17. How often do you feel that life has meaning and purpose?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_1_1" name="spiritual_health_1"
+                                                value="1"> Very little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_1_2" name="spiritual_health_1"
+                                                value="2"> Little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_1_3" name="spiritual_health_1"
+                                                value="3"> Moderate
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_1_4" name="spiritual_health_1"
+                                                value="4"> A lot
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_1_5" name="spiritual_health_1"
+                                                value="5"> Very much
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="spiritual_health_2" class="form-label font-weight-bold">
+                                        18. How connected do you feel to something greater than yourself?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_2_1" name="spiritual_health_2"
+                                                value="1"> Very little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_2_2" name="spiritual_health_2"
+                                                value="2"> Little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_2_3" name="spiritual_health_2"
+                                                value="3"> Moderate
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_2_4" name="spiritual_health_2"
+                                                value="4"> A lot
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_2_5" name="spiritual_health_2"
+                                                value="5"> Very much
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="spiritual_health_3" class="form-label font-weight-bold">
+                                        19. How often do you engage in activities that nourish your spirit?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_3_1" name="spiritual_health_3"
+                                                value="1"> Very little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_3_2" name="spiritual_health_3"
+                                                value="2"> Little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_3_3" name="spiritual_health_3"
+                                                value="3"> Moderate
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_3_4" name="spiritual_health_3"
+                                                value="4"> A lot
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_3_5" name="spiritual_health_3"
+                                                value="5"> Very much
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 p-3 border rounded bg-light">
+                                    <label for="spiritual_health_4" class="form-label font-weight-bold">
+                                        20. How much peace and inner calm have you experienced?
+                                    </label>
+                                    <div>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_4_1" name="spiritual_health_4"
+                                                value="1"> Very little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_4_2" name="spiritual_health_4"
+                                                value="2"> Little
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_4_3" name="spiritual_health_4"
+                                                value="3"> Moderate
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_4_4" name="spiritual_health_4"
+                                                value="4"> A lot
+                                        </label>
+                                        <label class="d-block mb-2">
+                                            <input type="radio" id="spiritual_health_4_5" name="spiritual_health_4"
+                                                value="5"> Very much
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Arrow Navigation -->
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-primary" id="prev-tab" type="button" aria-label="Previous" disabled>
+                                <span style="">&lt;</span> Prev
+                            </button>
+                            <button class="btn btn-primary" id="next-tab" type="button" aria-label="Next">
+                                Next <span class="">&gt;</span>
+                            </button>
+                        </div>
+
+
+                        <div class="result-section">
+                            <button type="button" class="btn btn-primary btn-submit"
+                                onclick="calculateResults()">Calculate
+                                Results</button>
+                        </div>
+                    </form>
+
+
+                    <!-- Results Display -->
+
+                    <div class="conatiner" id="show_report" style="display:none">
+                        <div class="row align-items-center text-center">
+                            <div class="col-md-5">
+                                <div class="mt-5">
+                                    <div>
+                                        <p>To get a instant Report please click the button</p>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#introModal">
+                                            Show Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 py-3">
+                                <h4>OR</h4>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="my-3" id="send_mail" style="display:none">
+
+                                    <button type="button" class="btn btn-success mt-3"
+                                        onclick="submitEmail()">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Introduction -->
+    <div class="modal fade" id="introModal" tabindex="-1" aria-labelledby="introModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="introModalLabel">What is WHOQOL-BREF?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="results" class="result-section" style="display:none;">
+                        <h4>Results:</h4>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <p>Physical Health Score: <span id="physical_health_score"></span></p>
+                                    <div class="img-report">
+                                        <img class="img-fluid" src="" id="physical_img" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Psychological Health Score: <span id="psychological_health_score"></span></p>
+                                    <div class="img-report">
+                                        <img class="img-fluid" src="" id="psychological_img" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Social Health Score: <span id="social_health_score"></span></p>
+                                    <div class="img-report">
+                                        <img class="img-fluid" src="" id="social_img" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Environment Score: <span id="environment_score"></span></p>
+                                    <div class="img-report">
+                                        <img class="img-fluid" src="" id="environment_img" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Spiritual Health Score: <span id="spiritual_health_score"></span></p>
+                                    <div class="img-report">
+                                        <img class="img-fluid" src="" id="spiritual_img" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Overall Quality of Life Score: <span id="overall_score"></span></p>
+                                    <div class="img-report">
+                                        <img class="img-fluid" src="" id="overall_img" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="">
+                                <h4>Interpreting Your Scores:</h4>
+                                <p>Domain Scores Interpretation:</p>
+                                <ul>
+                                    <li>1–1.99: Very low quality of life in this domain.</li>
+                                    <li>2–2.99: Low quality of life in this domain.</li>
+                                    <li>3–3.99: Moderate quality of life in this domain.</li>
+                                    <li>4–4.99: High quality of life in this domain.</li>
+                                    <li>5: Very high quality of life in this domain.</li>
+                                </ul>
+                                <p>Overall Score Interpretation:</p>
+                                <ul>
+                                    <li>1–1.99: Very low quality of life overall.</li>
+                                    <li>2–2.99: Low quality of life overall.</li>
+                                    <li>3–3.99: Moderate quality of life overall.</li>
+                                    <li>4–4.99: High quality of life overall.</li>
+                                    <li>5: Very high quality of life overall.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and JS scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabs = document.querySelectorAll("#pills-tab a");
+            const prevButton = document.getElementById("prev-tab");
+            const nextButton = document.getElementById("next-tab");
+            let activeTabIndex = 0; // Starting from the first tab
+
+            const updateButtonState = () => {
+                // Disable the "Prev" button if we're on the first tab
+                prevButton.disabled = activeTabIndex === 0;
+                // Disable the "Next" button if we're on the last tab
+                nextButton.disabled = activeTabIndex === tabs.length - 1;
+            };
+
+            const changeTab = (direction) => {
+                if (direction === 'next' && activeTabIndex < tabs.length - 1) {
+                    activeTabIndex++;
+                } else if (direction === 'prev' && activeTabIndex > 0) {
+                    activeTabIndex--;
+                }
+                // Switch the active tab by clicking the corresponding tab link
+                tabs[activeTabIndex].click();
+                updateButtonState();
+            };
+
+            // Event listener for the "Next" button
+            nextButton.addEventListener("click", () => {
+                changeTab('next');
+            });
+
+            // Event listener for the "Previous" button
+            prevButton.addEventListener("click", () => {
+                changeTab('prev');
+            });
+
+            // Event listener for tab switching to adjust button states
+            tabs.forEach((tab, index) => {
+                tab.addEventListener("click", () => {
+                    activeTabIndex = index;
+                    updateButtonState();
+                });
+            });
+
+            // Initialize button states
+            updateButtonState();
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabs = document.querySelectorAll("#pills-tab a");
+            const domainSelect = document.getElementById("domain-select"); // Select element for mobile view
+            const domains = [
+                { id: "pills-physical", totalQuestions: 4 },
+                { id: "pills-psychological", totalQuestions: 4 },
+                { id: "pills-social", totalQuestions: 4 },
+                { id: "pills-environment", totalQuestions: 4 },
+                { id: "pills-spiritual", totalQuestions: 4 },
+            ];
+
+            domains.forEach((domain, index) => {
+                const domainElement = document.querySelector(`#${domain.id}`);
+                const radioGroups = Array.from(domainElement.querySelectorAll(".mb-3"));
+
+                // Listen for changes in the radio buttons of the current domain
+                radioGroups.forEach((group) => {
+                    const radios = group.querySelectorAll("input[type=radio]");
+                    radios.forEach((radio) => {
+                        radio.addEventListener("change", () => {
+                            // Check if all questions are answered in the current domain
+                            if (radioGroups.every((grp) => grp.querySelector("input[type=radio]:checked"))) {
+                                // If all options are answered, move to the next tab
+                                const nextTab = tabs[index + 1];
+                                if (nextTab) {
+                                    nextTab.click(); // Move to the next tab
+                                }
+
+                                // Automatically change the select value to the next domain
+                                const nextDomain = domains[index + 1];
+                                if (nextDomain) {
+                                    domainSelect.value = nextDomain.id.replace("pills-", ""); // Update select to next domain
+                                }
+                            }
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script>
+        function calculateResults() {
+            if (!areAllInputsSelected()) {
+                alert("Please answer all the questions before submitting.");
+                return;
+            }
+
+            const scores = {
+                physicalHealth: [
+                    getRadioValue("physical_health_1"),
+                    getRadioValue("physical_health_2"),
+                    getRadioValue("physical_health_3"),
+                    getRadioValue("physical_health_4")
+                ],
+                psychologicalHealth: [
+                    getRadioValue("psychological_health_1"),
+                    getRadioValue("psychological_health_2"),
+                    getRadioValue("psychological_health_3"),
+                    getRadioValue("psychological_health_4")
+                ],
+                socialHealth: [
+                    getRadioValue("social_health_1"),
+                    getRadioValue("social_health_2"),
+                    getRadioValue("social_health_3"),
+                    getRadioValue("social_health_4")
+                ],
+                environment: [
+                    getRadioValue("environment_1"),
+                    getRadioValue("environment_2"),
+                    getRadioValue("environment_3"),
+                    getRadioValue("environment_4")
+                ],
+                spiritualHealth: [
+                    getRadioValue("spiritual_health_1"),
+                    getRadioValue("spiritual_health_2"),
+                    getRadioValue("spiritual_health_3"),
+                    getRadioValue("spiritual_health_4")
+                ]
+            };
+
+            const physicalHealthScore = calculateAverage(scores.physicalHealth);
+            const psychologicalHealthScore = calculateAverage(scores.psychologicalHealth);
+            const socialHealthScore = calculateAverage(scores.socialHealth);
+            const environmentScore = calculateAverage(scores.environment);
+            const spiritualHealthScore = calculateAverage(scores.spiritualHealth);
+
+            const overallScore = (
+                physicalHealthScore +
+                psychologicalHealthScore +
+                socialHealthScore +
+                environmentScore +
+                spiritualHealthScore
+            ) / 5;
+
+            document.getElementById("physical_health_score").innerText = interpretScore(physicalHealthScore, "physical_health");
+            document.getElementById("psychological_health_score").innerText = interpretScore(psychologicalHealthScore, "psychological_health");
+            document.getElementById("social_health_score").innerText = interpretScore(socialHealthScore, "social_health");
+            document.getElementById("environment_score").innerText = interpretScore(environmentScore, "environment");
+            document.getElementById("spiritual_health_score").innerText = interpretScore(spiritualHealthScore, "spiritual_health");
+            document.getElementById("overall_score").innerText = interpretScore(overallScore, "overall");
+
+            document.getElementById("survey-form").style.display = "none";
+            document.getElementById("results").style.display = "block";
+            document.getElementById("show_report").style.display = "block";
+            document.getElementById("send_mail").style.display = "block";
+
+            window.scrollTo({
+                top: 150,
+                behavior: "smooth"
+            });
+        }
+
+        // Function to interpret the score and return feedback
+        function interpretScore(score, domain) {
+            let imgElementId = "";
+            let feedback = "";
+
+            if (domain === "physical_health") imgElementId = "physical_img";
+            if (domain === "psychological_health") imgElementId = "psychological_img";
+            if (domain === "social_health") imgElementId = "social_img";
+            if (domain === "environment") imgElementId = "environment_img";
+            if (domain === "spiritual_health") imgElementId = "spiritual_img";
+            if (domain === "overall") imgElementId = "overall_img";
+
+            const imgElement = document.getElementById(imgElementId);
+
+            if (imgElement) {
+                if (score >= 1 && score <= 1.99) {
+                    feedback = "Very low quality of life";
+                    imgElement.src = "https://static.wixstatic.com/media/ab0b6b_915039823a5b44c2b31387733e797512~mv2.png";
+                } else if (score >= 2 && score <= 2.99) {
+                    feedback = "Low quality of life";
+                    imgElement.src = "https://static.wixstatic.com/media/ab0b6b_d4d7bd7c803e454aa6bed3aab5e8be5b~mv2.png";
+                } else if (score >= 3 && score <= 3.99) {
+                    feedback = "Moderate quality of life";
+                    imgElement.src = "https://static.wixstatic.com/media/ab0b6b_bcff2914199f4a22b3477d14dcbb293b~mv2.png";
+                } else if (score >= 4 && score <= 4.99) {
+                    feedback = "High quality of life";
+                    imgElement.src = "https://static.wixstatic.com/media/ab0b6b_937f3ac251c64b959719d8add959011f~mv2.png";
+                } else if (score === 5) {
+                    feedback = "Very high quality of life";
+                    imgElement.src = "https://static.wixstatic.com/media/ab0b6b_9899fb25fd5e4d779ac0714fcd8f19de~mv2.png";
+                }
+            }
+
+            return feedback;
+        }
+
+        // Function to check if all radio buttons are selected
+        function areAllInputsSelected() {
+            const domainNames = [
+                "physical_health", "psychological_health", "social_health",
+                "environment", "spiritual_health"
+            ];
+
+            for (let domain of domainNames) {
+                if (!isRadioSelected(domain)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Function to check if a particular radio button group is selected
+        function isRadioSelected(domainName) {
+            for (let i = 1; i <= 4; i++) {
+                const radios = document.getElementsByName(`${domainName}_${i}`);
+                if (radios && [...radios].some(radio => radio.checked)) {
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Function to get the selected radio button value for each domain
+        function getRadioValue(name) {
+            const radios = document.getElementsByName(name);
+            for (let radio of radios) {
+                if (radio.checked) {
+                    return parseInt(radio.value); // Return the value of the selected radio
+                }
+            }
+            return 0; // Return 0 if no option is selected (optional, could be handled as an error case)
+        }
+
+        // Function to calculate the average of an array of scores
+        function calculateAverage(scores) {
+            const total = scores.reduce((acc, score) => acc + score, 0);
+            return total / scores.length;
+        }
+
+        // JavaScript function to handle sending the report via AJAX
+        function submitEmail() {
+
+            const phoneNumber = "8700956484"; // Change to receiver's WhatsApp number
+            const reportData = {
+                physicalHealth: document.getElementById("physical_health_score").innerText,
+                psychologicalHealth: document.getElementById("psychological_health_score").innerText,
+                socialHealth: document.getElementById("social_health_score").innerText,
+                environment: document.getElementById("environment_score").innerText,
+                spiritualHealth: document.getElementById("spiritual_health_score").innerText,
+                overallScore: document.getElementById("overall_score").innerText
+            };
+
+            const message = `Health Report:\n
+    - Physical Health: ${reportData.physicalHealth}\n
+    - Psychological Health: ${reportData.psychologicalHealth}\n
+    - Social Health: ${reportData.socialHealth}\n
+    - Environment: ${reportData.environment}\n
+    - Spiritual Health: ${reportData.spiritualHealth}\n
+    - Overall Score: ${reportData.overallScore}`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappURL, "_blank");
+
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const domainSelect = document.getElementById("domain-select");
+            const domainTabs = {
+                physical: "#pills-physical",
+                psychological: "#pills-psychological",
+                social: "#pills-social",
+                environment: "#pills-environment",
+                spiritual: "#pills-spiritual"
+            };
+
+            const questions = {
+                physical: "#spiritual_health_1_1",  // Replace with the first question in the domain
+                psychological: "#spiritual_health_2_1", // Replace with the first question in the domain
+                social: "#spiritual_health_3_1",  // Replace with the first question in the domain
+                environment: "#spiritual_health_4_1",  // Replace with the first question in the domain
+                spiritual: "#spiritual_health_5_1"  // Replace with the first question in the domain
+            };
+
+            // Function to handle domain change from select dropdown
+            domainSelect.addEventListener("change", function () {
+                const selectedDomain = domainSelect.value;
+                switchDomain(selectedDomain);
+            });
+
+            // Function to switch domains and show corresponding questions
+            function switchDomain(selectedDomain) {
+                const targetTab = domainTabs[selectedDomain];
+
+                // Show the correct tab and questions
+                const targetTabElement = document.querySelector(targetTab);
+                const pillsTabLinks = document.querySelectorAll("#pills-tab a");
+
+                // Deselect all tabs and hide their content
+                pillsTabLinks.forEach(tabLink => tabLink.classList.remove("active"));
+                document.querySelectorAll(".tab-pane").forEach(tabContent => tabContent.classList.remove("show", "active"));
+
+                // Select the chosen tab and show its content
+                const selectedTabLink = document.querySelector(`#pills-${selectedDomain}-tab`);
+                selectedTabLink.classList.add("active");
+                targetTabElement.classList.add("show", "active");
+
+                // Check if the first question is answered to automatically shift
+                if (document.querySelector(questions[selectedDomain]).checked) {
+                    // Automatically move to the next domain
+                    const nextDomain = getNextDomain(selectedDomain);
+                    if (nextDomain) {
+                        domainSelect.value = nextDomain;
+                        switchDomain(nextDomain);
+                    }
+                }
+            }
+
+            // Get the next domain after the current domain
+            function getNextDomain(currentDomain) {
+                const domainOrder = ['physical', 'psychological', 'social', 'environment', 'spiritual'];
+                const currentIndex = domainOrder.indexOf(currentDomain);
+                if (currentIndex < domainOrder.length - 1) {
+                    return domainOrder[currentIndex + 1];
+                }
+                return null;
+            }
+        });
+    </script>
+</body>
+
+</html>
