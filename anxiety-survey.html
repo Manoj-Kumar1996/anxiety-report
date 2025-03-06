@@ -431,55 +431,21 @@
         document.getElementById('submitReport').addEventListener('click', (e) => {
             e.preventDefault();
 
+            let phoneNumber = "8929587164"; // User's WhatsApp Number
             const score = document.getElementById("anxietyScore").textContent;
             const resultMessage = document.getElementById("resultMessage").textContent;
 
-            // Ask user to choose format
-            Swal.fire({
-                title: "Download Report",
-                text: "Choose a format:",
-                icon: "info",
-                showCancelButton: true,
-                confirmButtonText: "Download PDF",
-                cancelButtonText: "Download Excel"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    generatePDF(score, resultMessage);
-                } else {
-                    generateExcel(score, resultMessage);
-                }
-            });
+            
+                const message = `Anxiety Report:\n- Score: ${score}\n- Result: ${resultMessage}`;
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+                window.open(whatsappURL, "_blank"); // Opens WhatsApp chat with the pre-filled message
         });
 
-        // Function to generate PDF
-        function generatePDF(score, resultMessage) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+       
 
-            doc.setFontSize(18);
-            doc.text("Anxiety Report", 10, 20);
-
-            doc.setFontSize(12);
-            doc.text(`Score: ${score}`, 10, 40);
-            doc.text(`Result: ${resultMessage}`, 10, 50);
-
-            doc.save("Anxiety_Report.pdf");
-        }
-
-        // Function to generate Excel
-        function generateExcel(score, resultMessage) {
-            const wb = XLSX.utils.book_new();
-            const wsData = [
-                ["Anxiety Report"],
-                ["Score", score],
-                ["Result", resultMessage]
-            ];
-
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            XLSX.utils.book_append_sheet(wb, ws, "Report");
-
-            XLSX.writeFile(wb, "Anxiety_Report.xlsx");
-        }
+       
 
 
     </script>
