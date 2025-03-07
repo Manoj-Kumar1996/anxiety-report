@@ -278,7 +278,7 @@
                                 <div class="popup-content">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
                                                 data-bs-target="#introModal">
                                                 Show Report
                                             </button>
@@ -292,17 +292,13 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="input-group mb-3">
-
-                                                <div class="input-group-append">
-                                                    <button id="submitReport" class="btn btn-outline-primary"
-                                                        type="button">Submit</button>
+                                                <div class="input-group-append w-100">
+                                                    <button id="submitReport" class="btn w-100 btn-primary text-white"
+                                                        type="button">Download your report</button>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
 
@@ -431,23 +427,102 @@
         document.getElementById('submitReport').addEventListener('click', (e) => {
             e.preventDefault();
 
-            let phoneNumber = "+918929587164"; // User's WhatsApp Number
             const score = document.getElementById("anxietyScore").textContent;
             const resultMessage = document.getElementById("resultMessage").textContent;
 
-            
-                const message = `Anxiety Report:\n- Score: ${score}\n- Result: ${resultMessage}`;
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-                window.open(whatsappURL, "_blank"); // Opens WhatsApp chat with the pre-filled message
+            Swal.fire({
+                title: "Download Report",
+                text: "Choose a format:",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "Download PDF",
+                cancelButtonText: "Download Excel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    generatePDF(score, resultMessage);
+                } else {
+                    generateExcel(score, resultMessage);
+                }
+            });
         });
 
-       
+        // Function to generate PDF with Banner and Additional Text
+        function generatePDF(score, resultMessage) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const bannerImageURL = "https://static.wixstatic.com/media/ab0b6b_a0efa288e00d4cb59313588dffeaeada~mv2.png"; // Ensure this path is correct
 
-       
+            const img = new Image();
+            img.src = bannerImageURL;
+            img.crossOrigin = "Anonymous"; // Ensure cross-origin handling for local/remote images
 
+            img.onload = function () {
+                doc.addImage(img, "PNG", 10, 10, 190, 40); // Ensure format is PNG if the image is in PNG
 
+                doc.setFontSize(18);
+                doc.text("Anxiety Report", 10, 60);
+
+                doc.setFontSize(12);
+                doc.text(`Score: ${score}`, 10, 75);
+                doc.text(`Result: ${resultMessage}`, 10, 85);
+
+                // Category Information
+                doc.setFontSize(14);
+                doc.text("Category:", 10, 100);
+                doc.setFontSize(12);
+                doc.text("• 0-4 points: Minimal anxiety or no symptoms.", 15, 110);
+                doc.text("• 5-9 points: Mild anxiety.", 15, 120);
+                doc.text("• 10-14 points: Moderate anxiety.", 15, 130);
+                doc.text("• 15-21 points: Severe anxiety.", 15, 140);
+
+                // Important Notes
+                doc.setFontSize(14);
+                doc.text("Important:", 10, 155);
+                doc.setFontSize(12);
+                const importantText = [
+                    "• This assessment is intended to help you reflect on your symptoms but should not",
+                    "  be used as a definitive diagnosis. If your score suggests moderate or severe",
+                    "  anxiety (10 points or more), it is advisable to seek professional consultation.",
+                    "• If you experience thoughts of self-harm or overwhelming distress, please reach",
+                    "  out for immediate support through a mental health professional or call 988."
+                ];
+                let yPosition = 165;
+                importantText.forEach((line) => {
+                    doc.text(line, 15, yPosition);
+                    yPosition += 8; // Space between lines
+                });
+
+                doc.save("Anxiety_Report.pdf");
+            };
+
+            img.onerror = function () {
+                alert("Failed to load banner image. Please check the path or file format.");
+            };
+        }
+
+        // Function to generate Excel
+        function generateExcel(score, resultMessage) {
+            const wb = XLSX.utils.book_new();
+            const wsData = [
+                ["Anxiety Report"],
+                ["Score", score],
+                ["Result", resultMessage],
+                [],
+                ["Category"],
+                ["0-4 points", "Minimal anxiety or no symptoms."],
+                ["5-9 points", "Mild anxiety."],
+                ["10-14 points", "Moderate anxiety."],
+                ["15-21 points", "Severe anxiety."],
+                [],
+                ["Important"],
+                ["This assessment is intended to help you reflect on your symptoms but should not be used as a definitive diagnosis."],
+                ["If your score suggests moderate or severe anxiety (10+ points), seek professional consultation."],
+                ["If you experience thoughts of self-harm, reach out to a mental health professional or call 988."]
+            ];
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+            XLSX.utils.book_append_sheet(wb, ws, "Report");
+            XLSX.writeFile(wb, "Anxiety_Report.xlsx");
+        }
     </script>
 
 </body>
