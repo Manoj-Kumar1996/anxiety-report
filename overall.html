@@ -737,7 +737,7 @@
                                 <div class="my-3" id="send_mail" style="display:none">
 
                                     <button type="button" class="btn btn-success mt-3"
-                                        onclick="submitEmail()">Submit</button>
+                                        id="submitReport">Download the report</button>
                                 </div>
                             </div>
                         </div>
@@ -833,6 +833,14 @@
 
     <!-- Bootstrap and JS scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    
+     <!-- SheetJS -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+     <!-- SweetAlert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <script>
@@ -1078,33 +1086,7 @@
             return total / scores.length;
         }
 
-        // JavaScript function to handle sending the report via AJAX
-        function submitEmail() {
 
-            const phoneNumber = "8700956484"; // Change to receiver's WhatsApp number
-            const reportData = {
-                physicalHealth: document.getElementById("physical_health_score").innerText,
-                psychologicalHealth: document.getElementById("psychological_health_score").innerText,
-                socialHealth: document.getElementById("social_health_score").innerText,
-                environment: document.getElementById("environment_score").innerText,
-                spiritualHealth: document.getElementById("spiritual_health_score").innerText,
-                overallScore: document.getElementById("overall_score").innerText
-            };
-
-            const message = `Health Report:\n
-    - Physical Health: ${reportData.physicalHealth}\n
-    - Psychological Health: ${reportData.psychologicalHealth}\n
-    - Social Health: ${reportData.socialHealth}\n
-    - Environment: ${reportData.environment}\n
-    - Spiritual Health: ${reportData.spiritualHealth}\n
-    - Overall Score: ${reportData.overallScore}`;
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-            window.open(whatsappURL, "_blank");
-
-        }
     </script>
 
     <script>
@@ -1170,6 +1152,124 @@
                 return null;
             }
         });
+    </script>
+
+    <script>
+
+        document.getElementById('submitReport').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            Swal.fire({
+                title: "Download Report",
+                text: "Choose a format:",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "Download PDF",
+                cancelButtonText: "Download Excel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    generatePDF();
+                } else {
+                    generateExcel();
+                }
+            });
+        });
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const bannerImageURL = "https://static.wixstatic.com/media/ab0b6b_a0efa288e00d4cb59313588dffeaeada~mv2.png"; // Banner image URL
+
+            const img = new Image();
+            img.src = bannerImageURL;
+            img.crossOrigin = "Anonymous";
+
+            Swal.fire({
+                title: "Generating PDF...",
+                text: "Please wait while your report is being created.",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            img.onload = function () {
+                doc.addImage(img, "PNG", 10, 10, 190, 40); // Adding Banner
+
+                doc.setFontSize(18);
+                doc.text("Overall Health Survey Report", 10, 60);
+
+                // Table Data
+                const headers = [["Category", "Score"]];
+                const data = [
+                    ["Physical Health", document.getElementById("physical_health_score").innerText],
+                    ["Psychological Health", document.getElementById("psychological_health_score").innerText],
+                    ["Social Health", document.getElementById("social_health_score").innerText],
+                    ["Environment", document.getElementById("environment_score").innerText],
+                    ["Spiritual Health", document.getElementById("spiritual_health_score").innerText],
+                    ["Overall Score", document.getElementById("overall_score").innerText]
+                ];
+
+                doc.autoTable({
+                    head: headers,
+                    body: data,
+                    startY: 70,
+                    styles: { fontSize: 12, cellPadding: 5 },
+                    headStyles: { fillColor: [41, 128, 185] }
+                });
+
+                let yPos = doc.lastAutoTable.finalY + 10;
+
+                // Interpretation Text
+                doc.setFontSize(14);
+                doc.text("Interpreting Your Scores:", 10, yPos);
+                yPos += 8;
+
+                doc.setFontSize(12);
+                doc.text("Domain Scores Interpretation:", 10, yPos);
+                yPos += 6;
+
+                const domainInterpretation = [
+                    "1–1.99: Very low quality of life in this domain.",
+                    "2–2.99: Low quality of life in this domain.",
+                    "3–3.99: Moderate quality of life in this domain.",
+                    "4–4.99: High quality of life in this domain.",
+                    "5: Very high quality of life in this domain."
+                ];
+
+                domainInterpretation.forEach(text => {
+                    doc.text(`• ${text}`, 15, yPos);
+                    yPos += 6;
+                });
+
+                yPos += 6;
+                doc.text("Overall Score Interpretation:", 10, yPos);
+                yPos += 6;
+
+                const overallInterpretation = [
+                    "1–1.99: Very low quality of life overall.",
+                    "2–2.99: Low quality of life overall.",
+                    "3–3.99: Moderate quality of life overall.",
+                    "4–4.99: High quality of life overall.",
+                    "5: Very high quality of life overall."
+                ];
+
+                overallInterpretation.forEach(text => {
+                    doc.text(`• ${text}`, 15, yPos);
+                    yPos += 6;
+                });
+
+                Swal.close();
+                doc.save("Health_Survey_Report.pdf");
+            };
+
+            img.onerror = function () {
+                Swal.close();
+                Swal.fire("Error", "Failed to load banner image. Please try again.", "error");
+            };
+        }
+
     </script>
 </body>
 

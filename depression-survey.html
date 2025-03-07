@@ -337,7 +337,7 @@
                                 <div class="popup-content">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
                                                 data-bs-target="#introModal">
                                                 Show Report
                                             </button>
@@ -351,12 +351,10 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="input-group mb-3">
-                                                <input type="email" id="emailInput" class="form-control"
-                                                    placeholder="Enter your email to get report"
-                                                    aria-label="Recipient's email" aria-describedby="basic-addon2">
-                                                <div class="input-group-append">
-                                                    <button id="submitReport" class="btn btn-outline-primary"
-                                                        type="button">Submit</button>
+                                                
+                                                <div class="input-group-append w-100">
+                                                    <button id="submitReport" class="btn btn-primary text-white w-100"
+                                                        type="button">Download the report</button>
                                                 </div>
                                             </div>
 
@@ -423,6 +421,12 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         let currentQuestion = 1;
         let score = 0;
@@ -504,18 +508,106 @@
         document.getElementById('submitReport').addEventListener('click', (e) => {
             e.preventDefault();
 
-            const phoneNumber = "000-000-000"; // User's WhatsApp number
-            const score = document.getElementById('depressionScore').textContent;
-            const resultMessage = document.getElementById('resultMessage').textContent;
+            const score = document.getElementById("depressionScore").textContent;
+            const resultMessage = document.getElementById("resultMessage").textContent;
 
-            
-                const message = `Depression Report:\n- Score: ${score}\n- Result: ${resultMessage}`;
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-                window.open(whatsappURL, "_blank"); // Opens WhatsApp chat with the pre-filled message
-             
+            Swal.fire({
+                title: "Download Report",
+                text: "Choose a format:",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "Download PDF",
+                cancelButtonText: "Download Excel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    generatePDF(score, resultMessage);
+                } else {
+                    generateExcel(score, resultMessage);
+                }
+            });
         });
+
+        // Function to generate PDF with Banner and Additional Text
+        function generatePDF(score, resultMessage) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const bannerImageURL = "https://static.wixstatic.com/media/ab0b6b_a0efa288e00d4cb59313588dffeaeada~mv2.png"; // Ensure this path is correct
+
+            const img = new Image();
+            img.src = bannerImageURL;
+            img.crossOrigin = "Anonymous"; // Ensure cross-origin handling for local/remote images
+
+            img.onload = function () {
+                doc.addImage(img, "PNG", 10, 10, 190, 40); // Ensure format is PNG if the image is in PNG
+
+                doc.setFontSize(18);
+                doc.text("Depression Report", 10, 60);
+
+                doc.setFontSize(12);
+                doc.text(`Score: ${score}`, 10, 75);
+                doc.text(`Result: ${resultMessage}`, 10, 85);
+
+                // Category Information
+                doc.setFontSize(14);
+                doc.text("Category:", 10, 100);
+                doc.setFontSize(12);
+                doc.text("• 0-4 points: Minimal or no depressive symptoms.", 15, 110);
+                doc.text("• 5-9 points: Mild depression.", 15, 120);
+                doc.text("• 10-14 points: Moderate depression.", 15, 130);
+                doc.text("• 15-19 points: Moderately severe depression.", 15, 140);
+                doc.text("• 20-27 points: Severe depression.", 15, 150);
+
+                // Important Notes
+                doc.setFontSize(14);
+                doc.text("Important:", 10, 165);
+                doc.setFontSize(12);
+                const importantText = [
+                    "• This is a self-assessment tool and is not intended for a formal diagnosis.",
+                    "• If you scored in the moderate to severe range (10 or higher), it may indicate",
+                    "  that you are experiencing significant depressive symptoms. It is recommended",
+                    "  that you speak with a mental health professional for a full assessment and",
+                    "  discuss potential treatment options.",
+                    "• If you are experiencing thoughts of self-harm or suicide, please seek immediate",
+                    "  professional help or contact a helpline at 988.",
+                ];
+                let yPosition = 175;
+                importantText.forEach((line) => {
+                    doc.text(line, 15, yPosition);
+                    yPosition += 8; // Space between lines
+                });
+
+                doc.save("Depression_Report.pdf");
+            };
+
+            img.onerror = function () {
+                alert("Failed to load banner image. Please check the path or file format.");
+            };
+        }
+
+        // Function to generate Excel
+        function generateExcel(score, resultMessage) {
+            const wb = XLSX.utils.book_new();
+            const wsData = [
+                ["Depression Report"],
+                ["Score", score],
+                ["Result", resultMessage],
+                [],
+                ["Category"],
+                ["0-4 points", "Minimal or no depressive symptoms."],
+                ["5-9 points", "Mild depression."],
+                ["10-14 points", "Moderate depression."],
+                ["15-19 points", "Moderately severe depression."],
+                ["20-27 points", "Severe depression."],
+                [],
+                ["Important"],
+                ["This is a self-assessment tool and is not intended for a formal diagnosis."],
+                ["If you scored in the moderate to severe range (10 or higher), it may indicate that you are experiencing significant depressive symptoms. It is recommended that you speak with a mental health professional for a full assessment and discuss potential treatment options."],
+                ["If you are experiencing thoughts of self-harm or suicide, please seek immediate professional help or contact a helpline at 988."]
+            ];
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+            XLSX.utils.book_append_sheet(wb, ws, "Report");
+            XLSX.writeFile(wb, "Depression_Report.xlsx");
+        }
 
 
     </script>
