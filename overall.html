@@ -1179,7 +1179,7 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            const bannerImageURL = "https://static.wixstatic.com/media/ab0b6b_a0efa288e00d4cb59313588dffeaeada~mv2.png"; // Banner image URL
+            const bannerImageURL = "https://static.wixstatic.com/media/ab0b6b_ce2a11a7ca32433dabbdb75e351dd804~mv2.png"; // Banner image URL
 
             const img = new Image();
             img.src = bannerImageURL;
@@ -1219,46 +1219,7 @@
                     headStyles: { fillColor: [41, 128, 185] }
                 });
 
-                let yPos = doc.lastAutoTable.finalY + 10;
-
-                // Interpretation Text
-                doc.setFontSize(14);
-                doc.text("Interpreting Your Scores:", 10, yPos);
-                yPos += 8;
-
-                doc.setFontSize(12);
-                doc.text("Domain Scores Interpretation:", 10, yPos);
-                yPos += 6;
-
-                const domainInterpretation = [
-                    "1–1.99: Very low quality of life in this domain.",
-                    "2–2.99: Low quality of life in this domain.",
-                    "3–3.99: Moderate quality of life in this domain.",
-                    "4–4.99: High quality of life in this domain.",
-                    "5: Very high quality of life in this domain."
-                ];
-
-                domainInterpretation.forEach(text => {
-                    doc.text(`• ${text}`, 15, yPos);
-                    yPos += 6;
-                });
-
-                yPos += 6;
-                doc.text("Overall Score Interpretation:", 10, yPos);
-                yPos += 6;
-
-                const overallInterpretation = [
-                    "1–1.99: Very low quality of life overall.",
-                    "2–2.99: Low quality of life overall.",
-                    "3–3.99: Moderate quality of life overall.",
-                    "4–4.99: High quality of life overall.",
-                    "5: Very high quality of life overall."
-                ];
-
-                overallInterpretation.forEach(text => {
-                    doc.text(`• ${text}`, 15, yPos);
-                    yPos += 6;
-                });
+                
 
                 Swal.close();
                 doc.save("Health_Survey_Report.pdf");
