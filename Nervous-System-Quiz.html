@@ -201,7 +201,7 @@
     messageBox.textContent = "⏳ Processing... Sending your result via email...";
     messageBox.className = "text-blue-600 font-medium mt-2";
 
-    fetch("send-mail.php", {
+    fetch("https://unicornpay.com/send-mail.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&result=${encodeURIComponent(finalResult)}`
@@ -252,3 +252,4 @@
 
 </body>
 </html>
+
