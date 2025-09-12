@@ -1,111 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nervous System Quiz</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .fade-in { animation: fadeIn 1s ease-in-out; }
-    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    .card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-purple-100 to-pink-100 min-h-screen flex items-center justify-center py-10 px-4">
 
   <section class="w-full max-w-5xl bg-white p-8 rounded-2xl shadow-lg fade-in">
     <h1 class="text-3xl font-bold text-center mb-6">What State Is Your Nervous System In?</h1>
     <p class="text-center mb-8 text-lg text-gray-700">
-      Find out if you’re living in <strong>freeze, fawn, flight, fight,</strong> or <strong>balance</strong> — and get personalized tools to heal.
+      Find out if you’re living in <strong>freeze, fawn, flight, fight,</strong> or <strong>Flow</strong> — and get
+      personalized tools to heal.
     </p>
 
+    <!-- QUIZ FORM -->
     <form id="quiz-form" class="space-y-6">
-      <div id="quiz-questions" class="space-y-6">
-        <!-- Generate all 20 questions -->
-        <script>
-          const questions = [
-            "When you feel stressed, you usually…",
-            "Your relationship with rest looks like…",
-            "How do you respond when someone upsets you?",
-            "What does your body often feel like?",
-            "Your inner voice sounds like…",
-            "How’s your breathing most of the time?",
-            "Your relationship with boundaries is…",
-            "When you’re alone with your thoughts…",
-            "In social situations, you…",
-            "How often do you feel connected to your body?",
-            "What happens during conflict?",
-            "What does your energy feel like most days?",
-            "When you need help…",
-            "What’s your relationship with emotions?",
-            "Physically, you often experience…",
-            "How does your body respond after a stressful event?",
-            "What’s your relationship with control?",
-            "When things go wrong unexpectedly…",
-            "Which best describes your sleep?",
-            "Your ideal outcome from this course would be…"
-          ];
-
-          const options = [
-            ["A. Go numb or shut down completely.","B. Try to keep everyone happy and avoid conflict.","C. Get restless and throw yourself into doing more.","D. Get irritated and want to confront the situation.","E. Pause, breathe, and decide what’s best calmly."],
-            ["A. I feel exhausted all the time, but can’t really recharge.","B. I rest only when others are okay first.","C. Resting makes me anxious — there’s always something to do.","D. I get frustrated when I have to stop working or moving.","E. I rest when I need to without guilt."],
-            ["A. I freeze — my mind goes blank.","B. I immediately try to smooth things over, even if I’m hurt.","C. I overthink, replay the situation, and distract myself with tasks.","D. I confront them, sometimes aggressively.","E. I acknowledge my feelings and respond calmly."],
-            ["A. Heavy, sluggish, or numb.","B. Tense but constantly “on” for others.","C. Wired and restless, even when tired.","D. Hot, tight, or ready to react.","E. Relaxed yet alert."],
-            ["A. “What’s the point? I can’t handle this.”","B. “If they’re happy, I’ll be safe.”","C. “I need to do more, try harder, move faster.”","D. “I have to control this, or I’ll lose.”","E. “I’ve got this — one step at a time.”"],
-            ["A. Shallow, almost like I’m holding my breath.","B. Subtle and quiet, almost unnoticed.","C. Fast and a little shaky.","D. Deep but sharp — I sigh or huff a lot.","E. Naturally deep and steady."],
-            ["A. I shut down so people can’t reach me.","B. I avoid saying no because I don’t want conflict.","C. I set boundaries but struggle to enforce them.","D. I can be overly firm, sometimes defensive.","E. I communicate my needs calmly and clearly."],
-            ["A. I feel blank, numb, or disconnected.","B. I replay what others said and how I can keep them happy.","C. I spiral into overthinking and can’t turn my brain off.","D. I replay arguments and imagine comebacks.","E. I reflect and let my thoughts pass naturally."],
-            ["A. Withdraw or stay quiet.","B. Become overly agreeable and accommodating.","C. Talk a lot to avoid silence.","D. Dominate conversations or try to lead.","E. Engage comfortably and authentically."],
-            ["A. Rarely — I feel disconnected most of the time.","B. Sometimes, but mostly focused on others’ needs.","C. My mind races faster than my body can keep up.","D. I notice tension but can’t release it easily.","E. I regularly check in with my body and emotions."],
-            ["A. I shut down and can’t speak.","B. I try to fix it, even when I’m not wrong.","C. I avoid it by staying busy.","D. I get loud or defensive.","E. I listen, express myself, and seek resolution."],
-            ["A. Drained, sluggish, like moving through mud.","B. Tied up in taking care of everyone else.","C. Scattered and on edge, like I can’t slow down.","D. Bursty — high energy but easily triggered.","E. Balanced and steady."],
-            ["A. I don’t ask. I go silent.","B. I ask, but only if I know they won’t be upset.","C. I distract myself instead of reaching out.","D. I demand it or get frustrated if it’s not offered.","E. I ask openly and receive it without shame."],
-            ["A. I don’t feel much — it’s like they’re locked away.","B. I feel others’ emotions more than my own.","C. I feel overwhelmed by mine and want to escape them.","D. I feel intense emotions and express them quickly.","E. I feel them, process them, and let them go."],
-            ["A. Cold hands/feet, numbness, fatigue.","B. Tension headaches, jaw clenching, gut issues.","C. Racing heart, shaky hands, shallow breathing.","D. Tight shoulders, clenched fists, hot flashes.","E. Relaxed breath, good circulation, steady energy."],
-            ["A. I collapse into exhaustion or numbness.","B. I check on everyone else first.","C. I can’t sit still — I have to keep moving.","D. I stay agitated and replay the event.","E. I recover and self-soothe naturally."],
-            ["A. I give up control and let life happen to me.","B. I let others lead so I feel safe.","C. I try to control everything to avoid failure.","D. I demand control and resist authority.","E. I allow flow and trust myself."],
-            ["A. I freeze and can’t decide what to do.","B. I immediately think about how to please everyone involved.","C. I panic and overanalyze my next move.","D. I get angry and want to fix it fast.","E. I take a breath, then take action."],
-            ["A. Oversleeping or trouble waking up.","B. Light sleep — I wake up if others are restless.","C. Hard to fall asleep, mind races at night.","D. Sleep is shallow because I stay tense.","E. I sleep deeply and wake up rested."],
-            ["A. Feeling alive and connected again.","B. Feeling safe setting boundaries.","C. Feeling calmer and less restless.","D. Releasing anger and softening control.","E. Maintaining the balanced state I already have."]
-          ];
-
-          document.addEventListener("DOMContentLoaded", () => {
-            const container = document.getElementById("quiz-questions");
-            questions.forEach((q, i) => {
-              const div = document.createElement("div");
-              div.className = "card p-6 bg-gray-50 rounded-xl";
-              let html = `<p class="font-semibold mb-3">${i+1}. ${q}</p>`;
-              options[i].forEach(opt => {
-                const val = opt[0];
-                html += `<label class="block"><input type="radio" name="q${i+1}" value="${val}" required> ${opt}</label>`;
-              });
-              div.innerHTML = html;
-              container.appendChild(div);
-            });
-          });
-        </script>
-      </div>
+      <div id="quiz-questions" class="space-y-6"></div>
 
       <div class="text-center mt-8">
-        <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-purple-700 transition">
+        <button type="submit"
+          class="bg-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-purple-700 transition">
           See My Result
         </button>
       </div>
     </form>
 
+    <!-- USER INFO FORM -->
+    <div id="user-info-form" class="hidden mt-8 p-6 bg-gray-100 rounded-lg fade-in">
+      <h3 class="text-2xl font-bold mb-4">Almost there! Enter your details to see your result</h3>
+      <form id="details-form" class="space-y-4">
+        <input type="text" id="name" name="name" placeholder="Your Name"
+          class="w-full p-3 border rounded-lg" required>
+          <div id="form-message" class="mt-2"></div>
+
+        <input type="email" id="email" name="email" placeholder="Your Email"
+          class="w-full p-3 border rounded-lg" required>
+          <div id="form-message" class="mt-2"></div>
+
+        <button type="submit"
+          class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
+          Show My Result
+        </button>
+      </form>
+    </div>
+
+    <!-- RESULT -->
     <div id="quiz-result" class="hidden mt-8 p-6 bg-gray-100 rounded-lg fade-in">
       <h3 class="text-2xl font-bold mb-4">Your Result:</h3>
       <p id="result-text" class="text-lg mb-4"></p>
-      <button id="download-btn" class="hidden bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition">
+      <button id="download-btn"
+        class="hidden bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition">
         Download Your Personalized Practice Plan
       </button>
     </div>
   </section>
 
-  <script>
+
+
+<script>
+  const questions = [
+    "When you feel stressed, you usually…",
+    "Your relationship with rest looks like…",
+    "How do you respond when someone upsets you?",
+    "What does your body often feel like?",
+    "Your inner voice sounds like…",
+    "How’s your breathing most of the time?",
+    "Your relationship with boundaries is…",
+    "When you’re alone with your thoughts…",
+    "In social situations, you…",
+    "How often do you feel connected to your body?",
+    "What happens during conflict?",
+    "What does your energy feel like most days?",
+    "When you need help…",
+    "What’s your relationship with emotions?",
+    "Physically, you often experience…",
+    "How does your body respond after a stressful event?",
+    "What’s your relationship with control?",
+    "When things go wrong unexpectedly…",
+    "Which best describes your sleep?",
+    "Your ideal outcome from this course would be…"
+  ];
+
+  const options = [
+    ["A. Go numb or shut down completely.", "B. Try to keep everyone happy and avoid conflict.", "C. Get restless and throw yourself into doing more.", "D. Get irritated and want to confront the situation.", "E. Pause, breathe, and decide what’s best calmly."],
+    ["A. I feel exhausted all the time, but can’t really recharge.", "B. I rest only when others are okay first.", "C. Resting makes me anxious — there’s always something to do.", "D. I get frustrated when I have to stop working or moving.", "E. I rest when I need to without guilt."],
+    ["A. I freeze — my mind goes blank.", "B. I immediately try to smooth things over, even if I’m hurt.", "C. I overthink, replay the situation, and distract myself with tasks.", "D. I confront them, sometimes aggressively.", "E. I acknowledge my feelings and respond calmly."],
+    ["A. Heavy, sluggish, or numb.", "B. Tense but constantly “on” for others.", "C. Wired and restless, even when tired.", "D. Hot, tight, or ready to react.", "E. Relaxed yet alert."],
+    ["A. “What’s the point? I can’t handle this.”", "B. “If they’re happy, I’ll be safe.”", "C. “I need to do more, try harder, move faster.”", "D. “I have to control this, or I’ll lose.”", "E. “I’ve got this — one step at a time.”"],
+    ["A. Shallow, almost like I’m holding my breath.", "B. Subtle and quiet, almost unnoticed.", "C. Fast and a little shaky.", "D. Deep but sharp — I sigh or huff a lot.", "E. Naturally deep and steady."],
+    ["A. I shut down so people can’t reach me.", "B. I avoid saying no because I don’t want conflict.", "C. I set boundaries but struggle to enforce them.", "D. I can be overly firm, sometimes defensive.", "E. I communicate my needs calmly and clearly."],
+    ["A. I feel blank, numb, or disconnected.", "B. I replay what others said and how I can keep them happy.", "C. I spiral into overthinking and can’t turn my brain off.", "D. I replay arguments and imagine comebacks.", "E. I reflect and let my thoughts pass naturally."],
+    ["A. Withdraw or stay quiet.", "B. Become overly agreeable and accommodating.", "C. Talk a lot to avoid silence.", "D. Dominate conversations or try to lead.", "E. Engage comfortably and authentically."],
+    ["A. Rarely — I feel disconnected most of the time.", "B. Sometimes, but mostly focused on others’ needs.", "C. My mind races faster than my body can keep up.", "D. I notice tension but can’t release it easily.", "E. I regularly check in with my body and emotions."],
+    ["A. I shut down and can’t speak.", "B. I try to fix it, even when I’m not wrong.", "C. I avoid it by staying busy.", "D. I get loud or defensive.", "E. I listen, express myself, and seek resolution."],
+    ["A. Drained, sluggish, like moving through mud.", "B. Tied up in taking care of everyone else.", "C. Scattered and on edge, like I can’t slow down.", "D. Bursty — high energy but easily triggered.", "E. Balanced and steady."],
+    ["A. I don’t ask. I go silent.", "B. I ask, but only if I know they won’t be upset.", "C. I distract myself instead of reaching out.", "D. I demand it or get frustrated if it’s not offered.", "E. I ask openly and receive it without shame."],
+    ["A. I don’t feel much — it’s like they’re locked away.", "B. I feel others’ emotions more than my own.", "C. I feel overwhelmed by mine and want to escape them.", "D. I feel intense emotions and express them quickly.", "E. I feel them, process them, and let them go."],
+    ["A. Cold hands/feet, numbness, fatigue.", "B. Tension headaches, jaw clenching, gut issues.", "C. Racing heart, shaky hands, shallow breathing.", "D. Tight shoulders, clenched fists, hot flashes.", "E. Relaxed breath, good circulation, steady energy."],
+    ["A. I collapse into exhaustion or numbness.", "B. I check on everyone else first.", "C. I can’t sit still — I have to keep moving.", "D. I stay agitated and replay the event.", "E. I recover and self-soothe naturally."],
+    ["A. I give up control and let life happen to me.", "B. I let others lead so I feel safe.", "C. I try to control everything to avoid failure.", "D. I demand control and resist authority.", "E. I allow flow and trust myself."],
+    ["A. I freeze and can’t decide what to do.", "B. I immediately think about how to please everyone involved.", "C. I panic and overanalyze my next move.", "D. I get angry and want to fix it fast.", "E. I take a breath, then take action."],
+    ["A. Oversleeping or trouble waking up.", "B. Light sleep — I wake up if others are restless.", "C. Hard to fall asleep, mind races at night.", "D. Sleep is shallow because I stay tense.", "E. I sleep deeply and wake up rested."],
+    ["A. Feeling alive and connected again.", "B. Feeling safe setting boundaries.", "C. Feeling calmer and less restless.", "D. Releasing anger and softening control.", "E. Maintaining the balanced state I already have."]
+  ];
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("quiz-questions");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "card p-6 bg-gray-50 rounded-xl";
+      let html = `<p class="font-semibold mb-3">${i + 1}. ${q}</p>`;
+      options[i].forEach(opt => {
+        const val = opt[0];
+        html += `<label class="block"><input type="radio" name="q${i + 1}" value="${val}" required> ${opt}</label>`;
+      });
+      div.innerHTML = html;
+      container.appendChild(div);
+    });
+  });
+
   const answersMap = {
     A: "Freeze: You’re in a shutdown state — your body protects you by numbing out. Focus on gentle grounding, slow somatic shakes, and safety-building practices. Start with Module 2: Release Stored Trauma.",
     B: "Fawn: You survive by pleasing others and abandoning yourself. Focus on boundaries, self-validation, and reconnecting with your needs. Start with Module 5: Reclaim Your Power.",
@@ -114,40 +160,95 @@
     E: "Balanced: Your nervous system feels safe and regulated. Focus on maintaining practices that keep you grounded and resilient. Start with Module 6: Integration & Embodiment."
   };
 
-  document.getElementById("quiz-form").addEventListener("submit", function(e) {
+  let finalResult = "";
+
+  // Step 1: Quiz submit → Show user info form
+  document.getElementById("quiz-form").addEventListener("submit", function (e) {
     e.preventDefault();
 
     const formData = new FormData(this);
-    const counts = {A:0, B:0, C:0, D:0, E:0};
+    const counts = { A: 0, B: 0, C: 0, D: 0, E: 0 };
     formData.forEach(ans => counts[ans]++);
 
-    const topAnswer = Object.keys(counts).reduce((a,b) => counts[a] > counts[b] ? a : b);
-    const result = answersMap[topAnswer];
+    const topAnswer = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+    finalResult = answersMap[topAnswer];
 
-    const resultDiv = document.getElementById("quiz-result");
-    const resultText = document.getElementById("result-text");
-    const downloadBtn = document.getElementById("download-btn");
-
-    resultText.textContent = result;
-    resultDiv.classList.remove("hidden");
-    downloadBtn.classList.remove("hidden");
-    resultDiv.scrollIntoView({behavior: 'smooth'});
-
-    downloadBtn.onclick = () => {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(18);
-      doc.text("Your Personalized Practice Plan", 10, 20);
-      doc.setFontSize(14);
-      const cleanResult = result.replace(/[\u{1F300}-\u{1FAFF}]/gu, ''); // Remove emojis
-      const lines = doc.splitTextToSize(cleanResult, 180);
-      doc.text(lines, 10, 40);
-      doc.save("practice-plan.pdf");
-    };
+    document.getElementById("user-info-form").classList.remove("hidden");
+    document.getElementById("user-info-form").scrollIntoView({ behavior: 'smooth' });
   });
+
+  // Step 2: User fills name/email → Validate & Send
+  document.getElementById("details-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const messageBox = document.getElementById("form-message");
+
+    // Validation
+    if (!name) {
+      messageBox.textContent = "Please enter your name.";
+      messageBox.className = "text-red-600 font-medium mt-2";
+      return;
+    }
+    if (!validateEmail(email)) {
+      messageBox.textContent = "Please enter a valid email address.";
+      messageBox.className = "text-red-600 font-medium mt-2";
+      return;
+    }
+
+    // Show processing state
+    messageBox.textContent = "⏳ Processing... Sending your result via email...";
+    messageBox.className = "text-blue-600 font-medium mt-2";
+
+    fetch("send-mail.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&result=${encodeURIComponent(finalResult)}`
+    })
+      .then(res => res.text())
+      .then(data => {
+        if (data.toLowerCase().includes("success")) {
+          messageBox.textContent = "✅ Email sent successfully!";
+          messageBox.className = "text-green-600 font-medium mt-2";
+
+          // Only now show result
+          document.getElementById("result-text").textContent = finalResult;
+          document.getElementById("quiz-result").classList.remove("hidden");
+          document.getElementById("download-btn").classList.remove("hidden");
+          document.getElementById("quiz-result").scrollIntoView({ behavior: 'smooth' });
+        } else {
+          messageBox.textContent = "❌ Failed to send email. Please try again.";
+          messageBox.className = "text-red-600 font-medium mt-2";
+        }
+      })
+      .catch(err => {
+        messageBox.textContent = "⚠️ Error: " + err.message;
+        messageBox.className = "text-red-600 font-medium mt-2";
+      });
+  });
+  // Step 3: PDF Download
+  document.getElementById("download-btn").onclick = () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(18);
+    doc.text("Your Personalized Practice Plan", 10, 20);
+    doc.setFontSize(14);
+    const cleanResult = finalResult.replace(/[\u{1F300}-\u{1FAFF}]/gu, '');
+    const lines = doc.splitTextToSize(cleanResult, 180);
+    doc.text(lines, 10, 40);
+    doc.save("practice-plan.pdf");
+  };
+
+  // Helper: email validation regex
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
 </script>
+
+
 
 </body>
 </html>
-
